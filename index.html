@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Progetto Sperimentale</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <h1>This is a sperimental project!!!</h1>
+
+  <form action="/invia" method="POST">
+    Nome: <input type="text" name="nome"><br>
+    Cognome: <input type="text" name="cognome"><br>
+    Anno di nascita: <input type="number" name="anno"><br>
+    Mese di nascita: <input type="number" name="mese"><br>
+    Giorno di nascita: <input type="number" name="giorno"><br>
+    Sesso (M/F): <input type="text" name="sesso"><br>
+
+    <label for="Nome_Comune">Codice Comune:</label>
+    <select id="Nome_Comune" name="Nome_Comune">
+      <option value="">Scegli una opzione</option>
+    </select><br><br>
+
+    <input type="submit" value="Invia">
+    <input type="reset" value="Reimposta">
+  </form>
+
+  <script>
+    fetch('comuni.json')
+      .then(response => response.json())
+      .then(comuni => {
+        const select = document.getElementById('Nome_Comune');
+        comuni.forEach(comune => {
+          const option = document.createElement('option');
+          option.value = comune.codiceCatastale;
+          option.textContent = comune.nome;
+          select.appendChild(option);
+        });
+      })
+      .catch(error => console.error('Errore nel caricamento dei comuni:', error));
+  </script>
+
+</body>
+</html>
